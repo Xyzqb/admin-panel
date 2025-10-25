@@ -1180,3 +1180,55 @@
 // };
 
 // export default ShowAllCompany;
+
+
+    {/* 📄 Uploaded Documents */}
+                    {/* <Box sx={{ mt: 2 }}>
+                      <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                        Uploaded Documents:
+                      </Typography>
+                      <Stack direction="row" spacing={1} flexWrap="wrap">
+                        {Array.isArray(c.documents) &&
+                        c.documents.length > 0 ? (
+                          c.documents.map((docUrl, idx) => {
+                            const parts = docUrl.split("/");
+                            const fileName = parts[parts.length - 1];
+                            const isImage = /\.(jpg|jpeg|png|gif)$/i.test(
+                              fileName
+                            );
+                            const fileHref = docUrl.startsWith("http")
+                              ? docUrl
+                              : `${BASE_URL}/uploads/${docUrl}`;
+
+                            return isImage ? (
+                              <img
+                                key={idx}
+                                src={fileHref}
+                                alt={fileName}
+                                style={{
+                                  width: 80,
+                                  height: 80,
+                                  objectFit: "cover",
+                                  borderRadius: 4,
+                                }}
+                              />
+                            ) : (
+                              <Button
+                                key={idx}
+                                size="small"
+                                variant="outlined"
+                                href={fileHref}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {fileName}
+                              </Button>
+                            );
+                          })
+                        ) : (
+                          <Typography variant="caption">
+                            No documents uploaded
+                          </Typography>
+                        )}
+                      </Stack>
+                    </Box> */}

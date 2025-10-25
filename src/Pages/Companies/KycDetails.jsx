@@ -328,7 +328,6 @@
 
 
 
-
 import React, { useState, useEffect } from "react";
 import {
   Box,
@@ -345,6 +344,8 @@ import {
 import axios from "axios";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import Pdfdata from "./Pdfdata";
+import DownloadIcon from "@mui/icons-material/Download";
 
 const BASE_URL = "https://digidialersuperadmin.onrender.com";
 
@@ -529,7 +530,7 @@ const ShowAllCompany = () => {
                 {/* Expanded Details */}
                 {expandedCompany === c.company_id && (
                   <Box sx={{ mt: 2 }}>
-                    {/* ✅ All details in one flex row */}
+                 
                     <Box
                       sx={{
                         display: "flex",
@@ -538,47 +539,72 @@ const ShowAllCompany = () => {
                         fontSize: "14px",
                       }}
                     >
-                      <Typography><b>Name:</b> {c.company_name}</Typography>
-                      <Typography><b>Reg No:</b> {c.registration_no}</Typography>
-                      <Typography><b>GST:</b> {c.gst_number}</Typography>
-                      <Typography><b>PAN:</b> {c.pan_number}</Typography>
-                      <Typography><b>Director:</b> {c.director_name}</Typography>
-                      <Typography><b>Mobile:</b> {c.director_mobile}</Typography>
-                      <Typography><b>Email:</b> {c.director_email}</Typography>
-                      <Typography><b>Website:</b> {c.company_website}</Typography>
-                      <Typography><b>Address:</b> {c.company_address}</Typography>
-                      <Typography><b>Status:</b> {c.status}</Typography>
+                       <Typography>
+                        <b>Name:</b> {c.company_name}
+                        </Typography>
+                      <Typography>
+                        <b>Reg No:</b> {c.registration_no}
+                      </Typography>
+                      <Typography>
+                        <b>GST:</b> {c.gst_number}
+                      </Typography>
+                      <Typography>
+                        <b>PAN:</b> {c.pan_number}
+                      </Typography>
+                      <Typography>
+                        <b>Director:</b> {c.director_name}
+                      </Typography>
+                      <Typography>
+                        <b>Mobile:</b> {c.director_mobile}
+                      </Typography>
+                      <Typography>
+                        <b>Email:</b> {c.director_email}
+                      </Typography>
+                      <Typography>
+                        <b>Website:</b> {c.company_website}
+                      </Typography>
+                      <Typography>
+                        <b>Address:</b> {c.company_address}
+                      </Typography>
+                      <Typography>
+                        <b>Status:</b> {c.status}
+                      </Typography>
                     </Box>
 
-                    {/* 📄 PDF Documents */}
+                    
                     <Box sx={{ mt: 2 }}>
                       <Typography variant="subtitle2" sx={{ mb: 1 }}>
                         Documents:
                       </Typography>
                       <Stack direction="row" spacing={1} flexWrap="wrap">
-                        {[
-                          { key: "directorPan", label: "Director PAN" },
-                          { key: "directorAadhaar", label: "Director Aadhaar" },
-                          { key: "gstDoc", label: "GST Document" },
-                          { key: "companyPanDoc", label: "Company PAN" },
-                        ].map(
-                          (doc) =>
-                            c[doc.key] && (
-                              <Button
-                                key={doc.key}
-                                size="small"
-                                variant="outlined"
-                                href={getPdfUrl(c[doc.key])}
-                                target="_blank"
-                              >
-                                {doc.label}
-                              </Button>
-                            )
+
+                        {Array.isArray(c.documents) &&
+                        c.documents.length > 0 ? (
+                          c.documents.map((docUrl, idx) => (
+                            <Button
+                              key={idx}
+                              size="small"
+                              variant="contained"
+                              href={
+                                docUrl.startsWith("http")
+                                  ? docUrl
+                                  : `${BASE_URL}/uploads/${docUrl}`
+                              }
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              PDF {idx + 1}
+                            </Button>
+                          ))
+                        ) : (
+                          <Typography variant="caption">
+                            No documents uploaded
+                          </Typography>
                         )}
                       </Stack>
                     </Box>
 
-                    {/* ✅ Approve / Reject buttons */}
+                
                     <Box sx={{ mt: 2 }}>
                       <Stack direction="row" spacing={1}>
                         <Button
@@ -626,4 +652,3 @@ const ShowAllCompany = () => {
 };
 
 export default ShowAllCompany;
-  
