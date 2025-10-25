@@ -33,6 +33,7 @@ const LogDetails = () => {
     message: "",
     severity: "success",
   });
+  
   const [selectedLog, setSelectedLog] = useState(null); // For payload dialog
 
   // Show snackbar
@@ -41,46 +42,46 @@ const LogDetails = () => {
 
   // Fetch all logs
   const fetchAllLogs = async () => {
-  setLoading(true);
-  try {
-    const res = await axios.get(`${BASE_URL}/api/superadmin/webhooklogs/all`);
-    const logsData = res.data.logs || []; // ✅ always get array
-    setLogs(logsData);
-    showSnackbar("All logs loaded", "success");
-  } catch (err) {
-    console.error(err);
-    setLogs([]);
-    showSnackbar("Failed to fetch logs", "error");
-  } finally {
-    setLoading(false);
-  }
-};
+    setLoading(true);
+    try {
+      const res = await axios.get(`${BASE_URL}/api/superadmin/webhooklogs/all`);
+      const logsData = res.data.logs || []; // ✅ always get array
+      setLogs(logsData);
+      showSnackbar("All logs loaded", "success");
+    } catch (err) {
+      console.error(err);
+      setLogs([]);
+      showSnackbar("Failed to fetch logs", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-
-// Fetch log by ID
-const fetchLogById = async () => {
-  if (!logId.trim()) return showSnackbar("Enter Log ID", "warning");
-  setLoading(true);
-  try {
-    const res = await axios.get(`${BASE_URL}/api/superadmin/webhooklogs/${logId.trim()}`);
-    const logData = res.data.webhook_log;
+  // Fetch log by ID
+  const fetchLogById = async () => {
+    if (!logId.trim()) return showSnackbar("Enter Log ID", "warning");
+    setLoading(true);
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/api/superadmin/webhooklogs/${logId.trim()}`
+      );
+      const logData = res.data.webhook_log;
       console.log("API Response:", res.data);
-    if (logData && logData.id) {
-      setLogs([logData]); // wrap in array for table
-      showSnackbar("Log details loaded", "success");
-    } else {
+      if (logData && logData.id) {
+        setLogs([logData]); // wrap in array for table
+        showSnackbar("Log details loaded", "success");
+      } else {
+        setLogs([]);
+        showSnackbar("Log not found", "error");
+      }
+    } catch (err) {
+      console.error(err);
       setLogs([]);
       showSnackbar("Log not found", "error");
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error(err);
-    setLogs([]);
-    showSnackbar("Log not found", "error");
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   useEffect(() => {
     fetchAllLogs();
@@ -147,8 +148,8 @@ const fetchLogById = async () => {
                   </TableCell>
                 </TableRow>
               </TableHead>
-              {/* <TableBody>
-                 {logs.map((log) => (
+              <TableBody>
+                {logs.map((log) => (
                   <TableRow key={log.id}>
                     <TableCell>{log.id}</TableCell>
                     <TableCell>{log.team_id || "N/A"}</TableCell>
@@ -162,24 +163,8 @@ const fetchLogById = async () => {
                       </IconButton>
                     </TableCell>
                   </TableRow>
-                ))} 
-              </TableBody> */}
-              <TableBody>
-  {logs.map((log) => (
-    <TableRow key={log.id}>
-      <TableCell>{log.id}</TableCell>
-      <TableCell>{log.team_id || "N/A"}</TableCell>
-      <TableCell>{log.event_type || "N/A"}</TableCell>
-      <TableCell>
-        <IconButton color="primary" onClick={() => setSelectedLog(log.payload)}>
-          <InfoIcon />
-        </IconButton>
-      </TableCell>
-    </TableRow>
-  ))}
-</TableBody>
-
-
+                ))}
+              </TableBody>
             </Table>
           </TableContainer>
         ) : (

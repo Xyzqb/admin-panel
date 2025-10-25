@@ -1,3 +1,12 @@
+// team Member
+ 
+// {
+//             "user_id": "14",
+//             "name": "Anu",
+//             "email": "admin@abc.com",
+//             "role": "owner"
+//         }
+
 
 import React, { useState } from "react";
 import axios from "axios";
@@ -38,47 +47,94 @@ const TeamMembers = () => {
   };
 
   // ✅ Fetch members by team ID
-  const fetchMembers = async () => {
-    const trimmedId = teamId.trim();
-    if (!trimmedId) return showSnackbar("Enter Team ID", "warning");
+  // const fetchMembers = async () => {
+  //   const trimmedId = teamId.trim();
+  //   if (!trimmedId) return showSnackbar("Enter Team ID", "warning");
 
-    setLoading(true);
-    try {
-      const res = await axios.get(
-        `${BASE_URL}/api/superadmin/teammember/${trimmedId}`
-      );
+  //   setLoading(true);
+  //   try {
+  //     const res = await axios.get(
+  //       `${BASE_URL}/api/superadmin/teammember/${trimmedId}`
+  //     );
 
-      // API may return either { team: { members: [...] } } or just array
-      const teamData = res.data.team || res.data;
+  //     // API may return either { team: { members: [...] } } or just array
+  //     const teamData = res.data.team || res.data;
 
-      console.log("Team data:", teamData);
+  //     console.log("Team data:", teamData);
 
-      setMembers(teamData.members || []);
-      showSnackbar("Team members loaded successfully", "success");
-    } catch (err) {
-      console.error("Error fetching members:", err);
-      setMembers([]);
-      showSnackbar("Failed to fetch team members", "error");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     setMembers(teamData.members || []);
+  //     showSnackbar("Team members loaded successfully", "success");
+  //   } catch (err) {
+  //     console.error("Error fetching members:", err);
+  //     setMembers([]);
+  //     showSnackbar("Failed to fetch team members", "error");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
 
   // ✅ Delete single member
-  const removeMember = async (id) => {
-    if (!window.confirm("Are you sure you want to remove this member?")) return;
+  // const removeMember = async (id) => {
+  //   if (!window.confirm("Are you sure you want to remove this member?")) return;
 
-    try {
-      await axios.delete(`${BASE_URL}/api/superadmin/teammember/${id}`);
-      showSnackbar("Member removed successfully", "success");
+  //   try {
+  //     await axios.delete(`${BASE_URL}/api/superadmin/teammember/${id}`);
+  //     showSnackbar("Member removed successfully", "success");
 
-      // Remove from state instantly
-      setMembers((prev) => prev.filter((member) => member._id !== id));
-    } catch (err) {
-      console.error("Error removing member:", err);
-      showSnackbar("Failed to remove member", "error");
-    }
-  };
+  //     // Remove from state instantly
+  //     setMembers((prev) => prev.filter((member) => member._id !== id));
+  //   } catch (err) {
+  //     console.error("Error removing member:", err);
+  //     showSnackbar("Failed to remove member", "error");
+  //   }
+  // };
+  const token = localStorage.getItem("token");
+
+const fetchMembers = async () => {
+  if (!teamId.trim()) return showSnackbar("Enter Team ID", "warning");
+  setLoading(true);
+  try {
+    const res = await axios.get(
+      `${BASE_URL}/api/superadmin/teammember/${teamId}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    setMembers(Array.isArray(res.data) ? res.data : []);
+    showSnackbar("Team members loaded successfully", "success");
+  } catch (err) {
+    console.error(err);
+    setMembers([]);
+    showSnackbar(
+      err.response?.status === 401
+        ? "Unauthorized. Please login again."
+        : "Failed to fetch team members",
+      "error"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
+const removeMember = async (id) => {
+  if (!window.confirm("Are you sure you want to remove this member?")) return;
+  try {
+    await axios.delete(`${BASE_URL}/api/superadmin/teammember/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setMembers((prev) => prev.filter((m) => m._id !== id));
+    showSnackbar("Member removed successfully", "success");
+  } catch (err) {
+    console.error(err);
+    showSnackbar(
+      err.response?.status === 401
+        ? "Unauthorized. Please login again."
+        : "Failed to remove member",
+      "error"
+    );
+  }
+};
+
 
   // ✅ Remove all members
   const removeAllMembers = async () => {
