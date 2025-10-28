@@ -164,7 +164,7 @@ const Dashboard = () => {
                 borderRadius: 2,
                 background: "#fff",
                 color: "#000",
-                textAlign: "left",
+                // textAlign: "left",
                 width: "175px",
                 textAlign:"center",
               }}

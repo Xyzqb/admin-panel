@@ -29,7 +29,8 @@ const ShowAllCompany = () => {
   });
   const [expandedCompany, setExpandedCompany] = useState(null);
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("authToken");
+
   const getAuthHeader = () => ({ Authorization: `Bearer ${token}` });
 
   // ✅ Fetch all companies
@@ -53,7 +54,7 @@ const ShowAllCompany = () => {
     }
   };
 
-  console.log("Companies data:", companies);
+  // console.log("Companies data:", companies);
 
   // ✅ Fetch company by ID
   const fetchCompanyById = async () => {
@@ -88,11 +89,17 @@ const ShowAllCompany = () => {
 
   // ✅ Approve / Reject KYC
   const verifyKyc = async (company_id, action) => {
+    console.log(`Verifying KYC for ${company_id} with action: ${action}`);
     try {
       await axios.put(
         `${BASE_URL}/api/superadmin/kyc/verify/${company_id}`,
-        { status: action }, // ✅ backend expects status
-        { headers: getAuthHeader() }
+        { action },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
       );
 
       setSnackbar({
@@ -271,6 +278,16 @@ const ShowAllCompany = () => {
                           color="success"
                           size="small"
                           onClick={() => verifyKyc(c.company_id, "approved")}
+                           disabled={c.status === "approved" || c.status === "rejected"}
+                          sx={{
+                            filter: c.status === "approved" || c.status === "rejected" ? "blur(1px)" : "none",
+                            boxShadow:
+                              c.status === "pending"
+                                ? "0 0 10px 2px rgba(76, 175, 80, 0.8)" // glowing green effect
+                                : "none",
+                            transition: "all 0.3s ease",
+                            cursor: c.status === "approved" || c.status === "rejected" ? "not-allowed" : "pointer",
+                          }}
                         >
                           Approve
                         </Button>
@@ -279,6 +296,16 @@ const ShowAllCompany = () => {
                           color="error"
                           size="small"
                           onClick={() => verifyKyc(c.company_id, "rejected")}
+                          disabled={c.status === "approved" || c.status === "rejected"}
+                          sx={{
+                            filter: c.status === "approved" || c.status === "rejected" ? "blur(1px)" : "none",
+                            boxShadow:
+                              c.status === "pending"
+                                ? "0 0 10px 2px rgba(76, 175, 80, 0.8)" // glowing green effect
+                                : "none",
+                            transition: "all 0.3s ease",
+                            cursor: c.status === "approved" || c.status === "rejected" ? "not-allowed" : "pointer",
+                          }}  
                         >
                           Reject
                         </Button>
