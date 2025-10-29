@@ -166,7 +166,7 @@ const Dashboard = () => {
                 color: "#000",
                 // textAlign: "left",
                 width: "175px",
-                textAlign:"center",
+                justifyItems: "center",
               }}
             >
               <Box
