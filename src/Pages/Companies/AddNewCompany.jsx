@@ -134,39 +134,40 @@ const AddNewCompany = () => {
   };
 
   // Search by Name
- const searchCompanyByName = async () => {
-  if (!searchName.trim())
-    return showSnackbar("Enter company name", "warning");
+  const searchCompanyByName = async () => {
+    if (!searchName.trim())
+      return showSnackbar("Enter company name", "warning");
 
-  setLoading(true);
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/api/superadmin/company/getcompanyname/${encodeURIComponent(searchName.trim())}`
-    );
+    setLoading(true);
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/api/superadmin/company/getcompanyname/${encodeURIComponent(
+          searchName.trim()
+        )}`
+      );
 
-    // normalize response
-    const data = Array.isArray(res.data)
-      ? res.data
-      : res.data?.company
+      // normalize response
+      const data = Array.isArray(res.data)
+        ? res.data
+        : res.data?.company
         ? [res.data.company]
         : [];
 
-    if (data.length === 0) {
+      if (data.length === 0) {
+        showSnackbar("Company not found", "error");
+        setCompanies([]);
+      } else {
+        setCompanies(data);
+        showSnackbar("Company found!", "success");
+      }
+    } catch (err) {
+      console.error("Search by name error:", err.response?.data || err.message);
       showSnackbar("Company not found", "error");
       setCompanies([]);
-    } else {
-      setCompanies(data);
-      showSnackbar("Company found!", "success");
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error("Search by name error:", err.response?.data || err.message);
-    showSnackbar("Company not found", "error");
-    setCompanies([]);
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   // Clear search and show all companies
   const clearSearch = () => {
@@ -191,8 +192,8 @@ const AddNewCompany = () => {
         Add Company
       </Typography>
 
-      {/* ADD COMPANY */}
-      <Paper sx={{ p: 2, mb: 2, backgroundColor: "#f8f9fa" }}>
+      {/* ADD COMPANY sx={{ backgroundColor: "#e3f2fd" }}*/}
+      {/* <Paper sx={{ p: 2, mb: 2, backgroundColor: "#00838f" , boxShadow:"0px, 10px, 15px"}}>
         <Typography variant="h6" mb={2} fontWeight="bold">
           Add New Company
         </Typography>
@@ -230,10 +231,81 @@ const AddNewCompany = () => {
             {addLoading ? <CircularProgress size={40} /> : "Add"}
           </Button>
         </Stack>
+      </Paper> */}
+
+      <Paper
+        sx={{
+          p: 3,
+          mb: 3,
+          borderRadius: 3,
+          background: "#26a69a",
+          boxShadow: "0px 8px 25px, #fff",
+          color: "#fff",
+        }}
+      >
+        <Typography variant="h6" mb={2} fontWeight="bold">
+          Add New Company
+        </Typography>
+
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={2}
+          alignItems="flex-end"
+        >
+          <TextField
+            label="Company Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onKeyPress={handleKeyPress}
+            fullWidth
+            size="small"
+            required
+            sx={{ background: "#fff", borderRadius: 1 }}
+          />
+          <TextField
+            label="Domain"
+            value={domain}
+            onChange={(e) => setDomain(e.target.value)}
+            onKeyPress={handleKeyPress}
+            fullWidth
+            size="small"
+            required
+            placeholder="example.com"
+            sx={{ background: "#fff", borderRadius: 1 }}
+          />
+          <Button
+            variant="contained"
+            onClick={addCompany}
+            disabled={addLoading}
+            sx={{
+              minWidth: "120px",
+              height: "40px",
+              backgroundColor: "#00897b",
+              "&:hover": { backgroundColor: "#3ddfcaff" },
+            }}
+          >
+            {addLoading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Add"
+            )}
+          </Button>
+        </Stack>
       </Paper>
 
       {/* SEARCH */}
-      <Paper sx={{ p: 2, mb: 2, backgroundColor: "#f8f9fa" }}>
+      <Paper
+        sx={{
+          p: 3,
+          mb: 3,
+          borderRadius: 3,
+          // background: "#80cbc4",
+          // background:"	#0080ff",
+          background: "#b0bec5",
+          boxShadow: "0px 8px 25px, #fff",
+          color: "black",
+        }}
+      >
         <Typography variant="h6" mb={2} fontWeight="bold">
           Search Company
         </Typography>
@@ -249,15 +321,16 @@ const AddNewCompany = () => {
               onChange={(e) => setSearchId(e.target.value)}
               fullWidth
               size="small"
+              sx={{ background: "#fff", borderRadius: 1 }}
             />
             <Button
-              variant="outlined"
+              variant="contained"
               onClick={searchCompanyById}
               sx={{
                 mt: 1,
                 width: "100%",
-                bgcolor: "primary.main",
-                color: "white",
+                backgroundColor: "primary",
+                // "&:hover": { backgroundColor: "#3ddfcaff" },
               }}
             >
               Search by ID
@@ -271,15 +344,16 @@ const AddNewCompany = () => {
               onChange={(e) => setSearchName(e.target.value)}
               fullWidth
               size="small"
+              sx={{ background: "#fff", borderRadius: 1 }}
             />
             <Button
-              variant="outlined"
+              variant="contained"
               onClick={searchCompanyByName}
               sx={{
                 mt: 1,
                 width: "100%",
-                bgcolor: "primary.main",
-                color: "white",
+                backgroundColor: "primary",
+                // "&:hover": { backgroundColor: "#3ddfcaff" },
               }}
             >
               Search by Name
@@ -290,14 +364,19 @@ const AddNewCompany = () => {
             variant="contained"
             color="secondary"
             onClick={clearSearch}
-            sx={{ height: "35px" }}
+            sx={{
+              height: "40px",
+              fontWeight: "bold",
+              backgroundColor: "primary",
+              // "&:hover": { backgroundColor: "#3ddfcaff" },
+            }}
           >
             Show All
           </Button>
         </Stack>
       </Paper>
 
-      {/* COMPANY TABLE */}
+      {/* COMPANY TABLE  */}
       <Paper sx={{ p: 2 }}>
         <Typography variant="h6" mb={2} fontWeight="bold">
           Company List {companies.length > 0 && `(${companies.length})`}

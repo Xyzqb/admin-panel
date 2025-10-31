@@ -56,7 +56,15 @@ const Navbar = () => {
               alt="digidial"
               sx={{ height: 40, width: 40, borderRadius: "50%" }}
             />
-            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: "bold",
+                // background: "linear-gradient(to right, #6366f1, #8b5cf6)",
+                WebkitBackgroundClip: "text",
+                letterSpacing: "1px",
+              }}
+            >
               DigiDial
             </Typography>
           </Stack>
@@ -65,7 +73,7 @@ const Navbar = () => {
           <Stack direction="row" spacing={1} alignItems="center">
             <Button
               variant="contained"
-              color="primary"
+              color="#00bfa5"
               startIcon={<LogoutIcon />}
               onClick={handleLogout}
               sx={{ ml: 1 }}
@@ -74,11 +82,9 @@ const Navbar = () => {
             </Button>
           </Stack>
         </Toolbar>
-      </AppBar>     
+      </AppBar>
     </>
   );
 };
 
 export default Navbar;
-
-

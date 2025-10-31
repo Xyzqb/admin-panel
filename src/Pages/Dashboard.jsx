@@ -129,32 +129,40 @@ const Dashboard = () => {
       sx={{ p: 4, background: "#334155", color: "#fff", minHeight: "100vh" }}
     >
       {/* Header */}
-      <Typography variant="h4" sx={{ mb: 3, pt: 1, fontWeight: "bold" }}>
+      <Typography variant="h4" sx={{ mb: 3, pt: 2, fontWeight: "bold" }}>
         Super Admin Dashboard Overview
       </Typography>
 
       {/* Summary Cards */}
-      <Grid container spacing={2} sx={{ mb: 3, ml:1}}>
+      <Grid container spacing={2} sx={{ mb: 3, ml: 1 }}>
         {[
           {
             title: "Companies",
             value: totalCompanies,
-            icon: <Business fontSize="large" />,
+            icon: <Business fontSize="large" sx={{ color: "black" }} />,
+            bgColor: "#80cbc4", // soft teal
+            shadowColor: "rgba(0, 150, 136, 0.4)",
           },
           {
             title: "Admins",
             value: totalAdmins,
-            icon: <Person fontSize="large" />,
+            icon: <Person fontSize="large" sx={{ color: "black" }} />,
+            bgColor: "#90caf9",
+            shadowColor: "rgba(33, 150, 243, 0.4)",
           },
           {
             title: "Agents",
             value: totalAgents,
-            icon: <Groups fontSize="large" />,
+            icon: <Groups fontSize="large" sx={{ color: "black" }} />,
+            bgColor: "#ffe0b2", // light orange
+            shadowColor: "rgba(255, 152, 0, 0.4)",
           },
           {
             title: "Teams",
             value: totalTeams,
-            icon: <Group fontSize="large" />,
+            icon: <Group fontSize="large" sx={{ color: "black" }} />,
+            bgColor: "#e1bee7", // light purple
+            shadowColor: "rgba(156, 39, 176, 0.4)",
           },
         ].map((card, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
@@ -162,20 +170,31 @@ const Dashboard = () => {
               sx={{
                 p: 2,
                 borderRadius: 2,
-                background: "#fff",
-                color: "#000",
-                // textAlign: "left",
+                background: card.bgColor,
                 width: "175px",
                 justifyItems: "center",
+                boxShadow: `0px 8px 25px`,
+                transition: "transform 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-5px)",
+                },
               }}
             >
               <Box
                 sx={{ display: "flex", alignItems: "center", mb: 1, gap: 1 }}
               >
                 {card.icon}
-                <Typography variant="subtitle2">{card.title}</Typography>
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: "bold", color: "black" }}
+                >
+                  {card.title}
+                </Typography>
               </Box>
-              <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: "bold", color: "black" }}
+              >
                 {card.value}
               </Typography>
             </Paper>
@@ -191,13 +210,13 @@ const Dashboard = () => {
             sx={{
               p: 2,
               borderRadius: 2,
-              background: "#fff",
-              color: "#000",
               height: 300,
+              background:"#ffccbc",
               width: "400px",
+              boxShadow: "0px 6px 20px , #fff",
             }}
           >
-            <Typography variant="subtitle2" sx={{ mb: 2 }}>
+            <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
               Company Growth
             </Typography>
             {companyGrowth.length === 0 ? (
@@ -211,7 +230,7 @@ const Dashboard = () => {
                   <Line
                     type="monotone"
                     dataKey="count"
-                    stroke="#1976d2"
+                    stroke="#26a69a"
                     strokeWidth={3}
                   />
                 </LineChart>
@@ -226,13 +245,14 @@ const Dashboard = () => {
             sx={{
               p: 2,
               borderRadius: 2,
-              background: "#fff",
-              color: "#000",
               height: 300,
               width: "400px",
+              boxShadow: "0px 10px 30px",
+              background:"#ffccbc",
+              // border: "4px solid #26a69a",
             }}
           >
-            <Typography variant="subtitle2" sx={{ mb: 2 }}>
+            <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
               KYC Status
             </Typography>
             {kycData.length === 0 ? (
@@ -253,7 +273,6 @@ const Dashboard = () => {
             )}
           </Paper>
         </Grid>
-
       </Grid>
 
       {/* Footer */}
@@ -271,161 +290,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-
-
-// import React from "react";
-// import { Box, Typography, Grid, Paper } from "@mui/material";
-// import {
-//   BarChart,
-//   Bar,
-//   XAxis,
-//   YAxis,
-//   Tooltip,
-//   ResponsiveContainer,
-//   LineChart,
-//   Line,
-// } from "recharts";
-// import Business from "@mui/icons-material/Business";
-// import Person from "@mui/icons-material/Person";
-// import Group from "@mui/icons-material/Group";
-// import Groups from "@mui/icons-material/Groups";
-
-// // Mock data
-// const companyGrowthData = [
-//   { month: "Jan", companies: 20 },
-//   { month: "Feb", companies: 25 },
-//   { month: "Mar", companies: 30 },
-//   { month: "Apr", companies: 40 },
-//   { month: "May", companies: 45 },
-// ];
-
-// const kycStatusData = [
-//   { status: "Verified", count: 80 },
-//   { status: "Pending", count: 15 },
-//   { status: "Rejected", count: 5 },
-// ];
-
-// const Dashboard = () => {
-//   return (
-//     <Box
-//       sx={{ p: 4, background: "#334155", color: "#fff", minHeight: "100vh" }}
-//     >
-//       {/* Header */}
-//       <Typography variant="h4" sx={{ mb: 3, pt: 1, fontWeight:"bold"}}>
-//         Super Admin Dashboard Overview
-//       </Typography>
-
-//       {/* Summary Cards */}
-//       <Grid container spacing={2} sx={{ mb: 3 }}>
-//         {[
-//           {
-//             title: "Companies",
-//             value: "25",
-//             icon: <Business fontSize="large" />,
-//           },
-//           { title: "Admins", value: "40", icon: <Person fontSize="large" /> },
-//           { title: "Agents", value: "20", icon: <Groups fontSize="large" /> },
-//           { title: "Teams", value: "120", icon: <Group fontSize="large" /> },
-//         ].map((card, index) => (
-//           <Grid item xs={12} sm={6} md={3} key={index}>
-//             <Paper
-//               sx={{
-//                 p: 2,
-//                 borderRadius: 2,
-//                 background: "#fff",
-//                 color: "#000",
-//                 textAlign: "left",
-//                 width: "175px",
-//                 justifyItems: "center",
-//               }}
-//             >
-//               <Box
-//                 sx={{ display: "flex", alignItems: "center", mb: 1, gap: 1 }}
-//               >
-//                 {card.icon}
-//                 <Typography variant="subtitle2">{card.title}</Typography>
-//               </Box>
-//               <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-//                 {card.value}
-//               </Typography>
-//             </Paper>
-//           </Grid>
-//         ))}
-//       </Grid>
-
-//       {/* Charts */}
-//       <Grid container spacing={2}>
-//         {/* Company Growth Line Chart */}
-//         <Grid item xs={12} md={6}>
-//           <Paper
-//             sx={{
-//               p: 2,
-//               borderRadius: 2,
-//               background: "#fff",
-//               color: "#000",
-//               height: 300,
-//               width: "400px",
-//             }}
-//           >
-//             <Typography variant="subtitle2" sx={{ mb: 2 }}>
-//               Company Growth
-//             </Typography>
-//             <ResponsiveContainer width="100%" height="85%">
-//               <LineChart data={companyGrowthData}>
-//                 <XAxis dataKey="month" stroke="#000" />
-//                 <YAxis stroke="#000" />
-//                 <Tooltip />
-//                 <Line
-//                   type="monotone"
-//                   dataKey="companies"
-//                   stroke="#1976d2"
-//                   strokeWidth={3}
-//                 />
-//               </LineChart>
-//             </ResponsiveContainer>
-//           </Paper>
-//         </Grid>
-
-//         {/* KYC Status Bar Chart */}
-//         <Grid item xs={12} md={6}>
-//           <Paper
-//             sx={{
-//               p: 2,
-//               borderRadius: 2,
-//               background: "#fff",
-//               color: "#000",
-//               height: 300,
-//               width: "400px",
-//             }}
-//           >
-//             <Typography variant="subtitle2" sx={{ mb: 2 }}>
-//               KYC Status
-//             </Typography>
-//             <ResponsiveContainer width="100%" height="85%">
-//               <BarChart data={kycStatusData}>
-//                 <XAxis dataKey="status" stroke="#000" />
-//                 <YAxis stroke="#000" />
-//                 <Tooltip />
-//                 <Bar dataKey="count" fill="#1976d2" />
-//               </BarChart>
-//             </ResponsiveContainer>
-//           </Paper>
-//         </Grid>
-//       </Grid>
-
-//       {/* Footer */}
-//       <Typography
-//         variant="caption"
-//         sx={{ display: "block", textAlign: "center", color: "#888", mt: 4 }}
-//       >
-//         Powered by{" "}
-//         <Box component="span" sx={{ color: "blue", fontWeight: "bold" }}>
-//           Bitmax
-//         </Box>
-//       </Typography>
-//     </Box>
-//   );
-// };
-
-// export default Dashboard;
