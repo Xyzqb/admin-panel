@@ -25,6 +25,8 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import PersonSearchRoundedIcon from "@mui/icons-material/PersonSearchRounded";
+import SupervisorAccountRoundedIcon from "@mui/icons-material/SupervisorAccountRounded";
 
 const BASE_URL = "https://digidialersuperadmin.onrender.com";
 
@@ -113,42 +115,42 @@ const AgentsDetails = () => {
       setLoading(false);
     }
   };
-  
+
   const searchAgentsByAdmin = async () => {
-  if (!searchAdminId.trim()) return showSnackbar("Enter admin ID", "warning");
-  setLoading(true);
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/api/superadmin/agent/admin/${searchAdminId.trim()}`
-    );
-    console.log("Search by Admin Response:", res.data);
+    if (!searchAdminId.trim()) return showSnackbar("Enter admin ID", "warning");
+    setLoading(true);
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/api/superadmin/agent/admin/${searchAdminId.trim()}`
+      );
+      console.log("Search by Admin Response:", res.data);
 
-    const rawAgents = res.data?.agents || [];
+      const rawAgents = res.data?.agents || [];
 
-    const result = rawAgents.map((agent) => ({
-      _id: agent._id || agent.id,
-      name: agent.name,
-      email: agent.email,
-      mobile: agent.mobile,
-      profilePic: agent.profilePic || agent.profile_pic,
-      createdAt: agent.createdAt || agent.created_at,
-    }));
+      const result = rawAgents.map((agent) => ({
+        _id: agent._id || agent.id,
+        name: agent.name,
+        email: agent.email,
+        mobile: agent.mobile,
+        profilePic: agent.profilePic || agent.profile_pic,
+        createdAt: agent.createdAt || agent.created_at,
+      }));
 
-    setAgents(result);
+      setAgents(result);
 
-    if (result.length === 0) {
-      showSnackbar("No agents found under this admin", "error");
-    } else {
-      showSnackbar("Agents under admin loaded successfully!", "success");
+      if (result.length === 0) {
+        showSnackbar("No agents found under this admin", "error");
+      } else {
+        showSnackbar("Agents under admin loaded successfully!", "success");
+      }
+    } catch (err) {
+      console.error("Search Admin Error:", err.response?.data || err);
+      setAgents([]);
+      showSnackbar("Failed to fetch agents under this admin", "error");
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error("Search Admin Error:", err.response?.data || err);
-    setAgents([]);
-    showSnackbar("Failed to fetch agents under this admin", "error");
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   const clearSearch = () => {
     setSearchId("");
@@ -180,46 +182,45 @@ const AgentsDetails = () => {
 
   // Save edited agent
   const saveEdit = async () => {
-  if (!currentAgent?._id) return showSnackbar("Invalid agent ID", "error");
+    if (!currentAgent?._id) return showSnackbar("Invalid agent ID", "error");
 
-  try {
-    const payload = {
-      name: currentAgent.name,
-      email: currentAgent.email,
-      mobile: currentAgent.mobile,
-    };
+    try {
+      const payload = {
+        name: currentAgent.name,
+        email: currentAgent.email,
+        mobile: currentAgent.mobile,
+      };
 
-    const res = await axios.patch(
-      `${BASE_URL}/api/superadmin/agent/${currentAgent._id}`,
-      payload,
-      { headers: { "Content-Type": "application/json" } }
-    );
+      const res = await axios.patch(
+        `${BASE_URL}/api/superadmin/agent/${currentAgent._id}`,
+        payload,
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-    console.log("Update Response:", res.data);
+      console.log("Update Response:", res.data);
 
-    const updatedAgentRaw = res.data.updatedAgents;
+      const updatedAgentRaw = res.data.updatedAgents;
 
-    const updatedAgent = {
-      _id: updatedAgentRaw.id,
-      name: updatedAgentRaw.name,
-      email: updatedAgentRaw.email,
-      mobile: updatedAgentRaw.mobile,
-      profilePic: updatedAgentRaw.profile_pic,
-      createdAt: updatedAgentRaw.createdAt || updatedAgentRaw.created_at,
-    };
+      const updatedAgent = {
+        _id: updatedAgentRaw.id,
+        name: updatedAgentRaw.name,
+        email: updatedAgentRaw.email,
+        mobile: updatedAgentRaw.mobile,
+        profilePic: updatedAgentRaw.profile_pic,
+        createdAt: updatedAgentRaw.createdAt || updatedAgentRaw.created_at,
+      };
 
-    setAgents((prev) =>
-      prev.map((a) => (a._id === updatedAgent._id ? updatedAgent : a))
-    );
+      setAgents((prev) =>
+        prev.map((a) => (a._id === updatedAgent._id ? updatedAgent : a))
+      );
 
-    setEditDialogOpen(false);
-    showSnackbar("Agent updated successfully!", "success");
-  } catch (err) {
-    console.error("Update Error:", err.response?.data || err);
-    showSnackbar("Failed to update agent", "error");
-  }
-};
-
+      setEditDialogOpen(false);
+      showSnackbar("Agent updated successfully!", "success");
+    } catch (err) {
+      console.error("Update Error:", err.response?.data || err);
+      showSnackbar("Failed to update agent", "error");
+    }
+  };
 
   useEffect(() => {
     fetchAgents();
@@ -257,8 +258,10 @@ const AgentsDetails = () => {
                 width: "300px",
                 bgcolor: "primary.main",
                 color: "white",
+                gap: 1,
               }}
             >
+              <PersonSearchRoundedIcon />
               Search by ID
             </Button>
           </Box>
@@ -278,8 +281,10 @@ const AgentsDetails = () => {
                 width: "300px",
                 bgcolor: "primary.main",
                 color: "white",
+                gap: 1,
               }}
             >
+              <PersonSearchRoundedIcon />
               Search agents under Admin
             </Button>
           </Box>
@@ -288,8 +293,15 @@ const AgentsDetails = () => {
               variant="contained"
               color="secondary"
               onClick={clearSearch}
-              sx={{ mt: { xs: 2, md: 3 }, width: "300px", height: "40px" }}
+              sx={{
+                mt: { xs: 2, md: 3 },
+                width: "300px",
+                height: "40px",
+                gap: 1,
+                mr: 6,
+              }}
             >
+              <PersonSearchRoundedIcon />
               Show All Agents
             </Button>
           </Box>
@@ -298,9 +310,12 @@ const AgentsDetails = () => {
 
       {/* Agents Table */}
       <Paper sx={{ p: 2 }}>
-        <Typography variant="h6" mb={2} fontWeight="bold">
-          Agents List {agents.length > 0 && `(${agents.length})`}
-        </Typography>
+        <Box display="flex" alignItems="center" mb={2}>
+          <SupervisorAccountRoundedIcon sx={{ mr: 1 }} />
+          <Typography variant="h6" fontWeight="bold">
+            Agents List {agents.length > 0 && `(${agents.length})`}
+          </Typography>
+        </Box>
         {loading ? (
           <Box sx={{ textAlign: "center", py: 3 }}>
             <CircularProgress />
@@ -338,8 +353,12 @@ const AgentsDetails = () => {
                 <TableBody>
                   {agents.map((agent, index) => (
                     <TableRow key={agent._id || index}>
-                      <TableCell 
-                        sx={{ fontFamily: "monospace", fontSize: "0.8rem", align:"center"}}
+                      <TableCell
+                        sx={{
+                          fontFamily: "monospace",
+                          fontSize: "0.8rem",
+                          align: "center",
+                        }}
                       >
                         {agent._id}
                       </TableCell>
@@ -453,10 +472,7 @@ const AgentsDetails = () => {
 
 export default AgentsDetails;
 
-
-
-
-  // Profile pic withou api 
+// Profile pic withou api
 
 // <TableCell align="center">
 //   {agent.profilePic ? (

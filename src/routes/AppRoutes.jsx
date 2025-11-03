@@ -5,9 +5,7 @@ import Dashboard from "../Pages/Dashboard";
 import CompanyContactList from "../Pages/Companies/CompanyContactList";
 import AddEditContact from "../Pages/Companies/AddEditContact";
 import AddNewCompany from "../Pages/Companies/AddNewCompany";
-// import ShowAllCompany from "../Pages/Companies/ShowAllCompany";
 import AdminDetails from "../Pages/admins/AdminDetails";
-// import AgentsPage from "../Pages/Agents/AgentsPage";
 import AgentProfile from "../Pages/Agents/AgentProfile";
 import KycDetails from "../Pages/Companies/KycDetails";
 import Navbar from "../components/Navbar";
@@ -20,6 +18,9 @@ import TeamsPage from "../Pages/Teams/TeamsPage";
 
 // WebHooks
 import LogDetails from "../Pages/webhooks/LogDetails";
+
+// Plan
+import PlanDetails from "../Pages/Plans/PlanDetails";
 
 function AppLayout() {
   return (
@@ -72,6 +73,9 @@ function AppRoutes() {
 
             {/* WebHook */}
             <Route path="WebHook/log-details" element={<LogDetails />} />
+
+            {/* Plans */}
+            <Route path="Plans/plan-details" element={<PlanDetails/>}></Route>
           </Route>
         </Route>
 

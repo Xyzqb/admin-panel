@@ -134,34 +134,34 @@ const Dashboard = () => {
       </Typography>
 
       {/* Summary Cards */}
-      <Grid container spacing={2} sx={{ mb: 3, ml: 1 }}>
+      {/* <Grid container spacing={2} sx={{ mb: 3, ml: 1 }}>
         {[
           {
             title: "Companies",
             value: totalCompanies,
             icon: <Business fontSize="large" sx={{ color: "black" }} />,
-            bgColor: "#80cbc4", // soft teal
+            bgColor: "#e0f7fa",
             shadowColor: "rgba(0, 150, 136, 0.4)",
           },
           {
             title: "Admins",
             value: totalAdmins,
             icon: <Person fontSize="large" sx={{ color: "black" }} />,
-            bgColor: "#90caf9",
+           bgColor: "#e3f2fd",
             shadowColor: "rgba(33, 150, 243, 0.4)",
           },
           {
             title: "Agents",
             value: totalAgents,
             icon: <Groups fontSize="large" sx={{ color: "black" }} />,
-            bgColor: "#ffe0b2", // light orange
+            bgColor: "#e0caa7ff", // light orange
             shadowColor: "rgba(255, 152, 0, 0.4)",
           },
           {
             title: "Teams",
             value: totalTeams,
             icon: <Group fontSize="large" sx={{ color: "black" }} />,
-            bgColor: "#e1bee7", // light purple
+            bgColor: "#edd8f1ff", // light purple
             shadowColor: "rgba(156, 39, 176, 0.4)",
           },
         ].map((card, index) => (
@@ -200,6 +200,70 @@ const Dashboard = () => {
             </Paper>
           </Grid>
         ))}
+      </Grid> */}
+      <Grid container spacing={2} sx={{ mb: 3, ml: 1 }}>
+        {[
+          {
+            title: "Companies",
+            value: totalCompanies,
+            icon: <Business fontSize="large" sx={{ color: "#00796b" }} />,
+            bgColor: "#e6f9ff", // very light sky blue
+          },
+          {
+            title: "Admins",
+            value: totalAdmins,
+            icon: <Person fontSize="large" sx={{ color: "#1565c0" }} />,
+            bgColor: "#edf6ff", // soft icy blue
+          },
+          {
+            title: "Agents",
+            value: totalAgents,
+            icon: <Groups fontSize="large" sx={{ color: "#ef6c00" }} />,
+            bgColor: "#fff8e7", // pale peach
+          },
+          {
+            title: "Teams",
+            value: totalTeams,
+            icon: <Group fontSize="large" sx={{ color: "#7b1fa2" }} />,
+            bgColor: "#f8e9fc", // very light lavender
+          },
+        ].map((card, index) => (
+          <Grid item xs={12} sm={6} md={3} key={index}>
+            <Paper
+              sx={{
+                p: 2,
+                borderRadius: 2,
+                background: card.bgColor,
+                width: "175px",
+                justifyItems: "center",
+                boxShadow: `0px 4px 15px ${card.shadowColor}`,
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-5px)",
+                  boxShadow: `0px 8px 25px ${card.shadowColor}`,
+                },
+              }}
+            >
+              <Box
+                sx={{ display: "flex", alignItems: "center", mb: 1, gap: 1 }}
+              >
+                {card.icon}
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: "bold", color: "#333" }}
+                >
+                  {card.title}
+                </Typography>
+              </Box>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: "bold", color: "#111" }}
+              >
+                {card.value}
+              </Typography>
+            </Paper>
+          </Grid>
+        ))}
       </Grid>
 
       {/* Charts */}
@@ -211,7 +275,7 @@ const Dashboard = () => {
               p: 2,
               borderRadius: 2,
               height: 300,
-              background:"#ffccbc",
+               background: "white",
               width: "400px",
               boxShadow: "0px 6px 20px , #fff",
             }}
@@ -248,7 +312,7 @@ const Dashboard = () => {
               height: 300,
               width: "400px",
               boxShadow: "0px 10px 30px",
-              background:"#ffccbc",
+              background: "white",
               // border: "4px solid #26a69a",
             }}
           >

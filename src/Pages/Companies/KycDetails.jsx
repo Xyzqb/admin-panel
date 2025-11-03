@@ -15,6 +15,8 @@ import axios from "axios";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import DocumentViewer from "../Companies/DocumentViwer";
+import PersonSearchRoundedIcon from "@mui/icons-material/PersonSearchRounded";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
 const BASE_URL = "https://digidialersuperadmin.onrender.com";
 
@@ -94,12 +96,12 @@ const ShowAllCompany = () => {
       await axios.put(
         `${BASE_URL}/api/superadmin/kyc/verify/${company_id}`,
         { action },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
 
       setSnackbar({
@@ -142,7 +144,10 @@ const ShowAllCompany = () => {
       </Typography>
 
       {/* 🔍 Search Section */}
-      <Paper sx={{ p: 2, mb: 4, borderRadius: 1, width:"915px"}} elevation={2}>
+      <Paper
+        sx={{ p: 2, mb: 4, borderRadius: 1, width: "915px" }}
+        elevation={2}
+      >
         <Stack
           spacing={2}
           direction={{ xs: "column", sm: "row" }}
@@ -161,13 +166,16 @@ const ShowAllCompany = () => {
             variant="contained"
             onClick={fetchCompanyById}
           >
+            <PersonSearchRoundedIcon />
             Search by ID
           </Button>
 
-          <Button variant="contained" 
-          onClick={fetchAllCompanies}
+          <Button
+            variant="contained"
+            onClick={fetchAllCompanies}
             sx={{ width: "290px" }}
           >
+            <SearchRoundedIcon />
             Show All
           </Button>
         </Stack>
@@ -185,17 +193,15 @@ const ShowAllCompany = () => {
           {companies.map((c) => (
             <Grid item md={2} lg={2} key={c.company_id}>
               <Paper sx={{ p: 2, borderRadius: 2 }} elevation={3}>
-            
-                {/* <Box
+                <Box
                   sx={{
-                    p: 1,
-                    backgroundColor: "#f0f0f0",
-                    borderRadius: 1,
+                    p: 1.5,
+                    backgroundColor: "f0f0f0",
+                    borderRadius: 1.5,
                     display: "flex",
-                    justifyContent: "space-between",
+                    justifyContent: "center",
                     alignItems: "center",
-                    cursor: "pointer",
-                    width:"250px"
+                    width: "250px",
                   }}
                   onClick={() =>
                     setExpandedCompany(
@@ -203,44 +209,19 @@ const ShowAllCompany = () => {
                     )
                   }
                 >
-                  <Typography variant="h6">{c.company_id}</Typography>
+                  <Box>
+                    <Typography variant="subtitle1" fontWeight="bold">
+                      <span>{c.company_id}</span>{" "}
+                      {c.company_name || "Unnamed Company"}
+                    </Typography>
+                  </Box>
+
                   {expandedCompany === c.company_id ? (
                     <ExpandLessIcon />
                   ) : (
                     <ExpandMoreIcon />
                   )}
-                </Box> */}
-
-
-               <Box
-               sx={{
-                p:1.5,
-                backgroundColor:"f0f0f0",
-                borderRadius: 1.5,
-                display:"flex",
-                justifyContent:"center",
-                alignItems:"center",
-                // width:"100%",
-                width:"250px"
-               }}
-               onClick={() =>
-                setExpandedCompany(
-                expandedCompany === c.company_id ? null : c.company_id)
-               }
-               >
-              
-              <Box>
-                <Typography variant="subtitle1" fontWeight="bold">
-                 <span>{c.company_id}</span> {c.company_name || "Unnamed Company"}
-                </Typography>
-              </Box>
-
-              {expandedCompany === c.company_id ? (
-                <ExpandLessIcon/>
-              ) : (
-                <ExpandMoreIcon/>
-              )}
-               </Box>
+                </Box>
 
                 {/* Expanded Details */}
                 {expandedCompany === c.company_id && (
@@ -249,44 +230,84 @@ const ShowAllCompany = () => {
                     <Box
                       sx={{
                         display: "flex",
-                        flexWrap: "wrap",
+                        flexDirection: "column",
+                        backgroundColor: "#f0f6ff",
+                        borderRadius: "8px",
+                        padding: "16px",
                         gap: 2,
                         fontSize: "14px",
+                        boxShadow: "0 1px 3px",
+                        "& > *:nth-of-type(odd)": {
+                          backgroundColor: "#f0f6f",
+                        },
+                        "& > *:nth-of-type(even)": {
+                          backgroundColor: "#e3f2fd",
+                        },
+                        "& > *": {
+                          padding: "8px 4px",
+                        },
                       }}
                     >
-                      <Typography><b>Name:</b> {c.company_name}</Typography>
-                      <Typography><b>Reg No:</b> {c.registration_no}</Typography>
-                      <Typography><b>GST:</b> {c.gst_number}</Typography>
-                      <Typography><b>PAN:</b> {c.pan_number}</Typography>
-                      <Typography><b>Director:</b> {c.director_name}</Typography>
-                      <Typography><b>Mobile:</b> {c.director_mobile}</Typography>
-                      <Typography><b>Email:</b> {c.director_email}</Typography>
-                      <Typography><b>Website:</b> {c.company_website}</Typography>
-                      <Typography><b>Address:</b> {c.company_address}</Typography>
-                      <Typography><b>Status:</b> {c.status}</Typography>
+                      <Typography>
+                        <b>Name:</b> {c.company_name}
+                      </Typography>
+                      <Typography>
+                        <b>Reg No:</b> {c.registration_no}
+                      </Typography>
+                      <Typography>
+                        <b>GST:</b> {c.gst_number}
+                      </Typography>
+                      <Typography>
+                        <b>PAN:</b> {c.pan_number}
+                      </Typography>
+                      <Typography>
+                        <b>Director:</b> {c.director_name}
+                      </Typography>
+                      <Typography>
+                        <b>Mobile:</b> {c.director_mobile}
+                      </Typography>
+                      <Typography>
+                        <b>Email:</b> {c.director_email}
+                      </Typography>
+                      <Typography>
+                        <b>Website:</b> {c.company_website}
+                      </Typography>
+                      <Typography>
+                        <b>Address:</b> {c.company_address}
+                      </Typography>
+                      <Typography>
+                        <b>Status:</b> {c.status}
+                      </Typography>
                     </Box>
 
                     {/* 📄 PDF Documents */}
-                <DocumentViewer documents={c.documents} />
-
+                    <DocumentViewer documents={c.documents} />
 
                     {/* ✅ Approve / Reject buttons */}
-                    <Box sx={{ mt: 2 }}>
+                    <Box sx={{ mt: 2, padding: "14px" }}>
                       <Stack direction="row" spacing={1}>
                         <Button
                           variant="contained"
                           color="success"
                           size="small"
                           onClick={() => verifyKyc(c.company_id, "approved")}
-                           disabled={c.status === "approved" || c.status === "rejected"}
+                          disabled={
+                            c.status === "approved" || c.status === "rejected"
+                          }
                           sx={{
-                            filter: c.status === "approved" || c.status === "rejected" ? "blur(1px)" : "none",
+                            filter:
+                              c.status === "approved" || c.status === "rejected"
+                                ? "blur(1px)"
+                                : "none",
                             boxShadow:
                               c.status === "pending"
                                 ? "0 0 10px 2px rgba(76, 175, 80, 0.8)" // glowing green effect
                                 : "none",
                             transition: "all 0.3s ease",
-                            cursor: c.status === "approved" || c.status === "rejected" ? "not-allowed" : "pointer",
+                            cursor:
+                              c.status === "approved" || c.status === "rejected"
+                                ? "not-allowed"
+                                : "pointer",
                           }}
                         >
                           Approve
@@ -296,21 +317,30 @@ const ShowAllCompany = () => {
                           color="error"
                           size="small"
                           onClick={() => verifyKyc(c.company_id, "rejected")}
-                          disabled={c.status === "approved" || c.status === "rejected"}
+                          disabled={
+                            c.status === "approved" || c.status === "rejected"
+                          }
                           sx={{
-                            filter: c.status === "approved" || c.status === "rejected" ? "blur(1px)" : "none",
+                            filter:
+                              c.status === "approved" || c.status === "rejected"
+                                ? "blur(1px)"
+                                : "none",
                             boxShadow:
                               c.status === "pending"
                                 ? "0 0 10px 2px rgba(76, 175, 80, 0.8)" // glowing green effect
                                 : "none",
                             transition: "all 0.3s ease",
-                            cursor: c.status === "approved" || c.status === "rejected" ? "not-allowed" : "pointer",
-                          }}  
+                            cursor:
+                              c.status === "approved" || c.status === "rejected"
+                                ? "not-allowed"
+                                : "pointer",
+                          }}
                         >
                           Reject
                         </Button>
                       </Stack>
                     </Box>
+
                   </Box>
                 )}
               </Paper>

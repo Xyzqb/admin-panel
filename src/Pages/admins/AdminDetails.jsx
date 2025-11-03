@@ -24,6 +24,8 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
 const BASE_URL = "https://digidialersuperadmin.onrender.com";
 
@@ -214,8 +216,9 @@ const AdminDetails = () => {
         variant="contained"
         color="primary"
         onClick={() => setAddDialogOpen(true)}
-        sx={{ mb: 3, color: "#fff" }}
+        sx={{ mb: 3, color: "#fff", gap:1}}
       >
+        <AddCircleRoundedIcon/>
         Add Admin
       </Button>
 
@@ -231,15 +234,17 @@ const AdminDetails = () => {
         <Button
           variant="contained"
           onClick={fetchAdminById}
-          sx={{ minWidth: 120 }}
+          sx={{ minWidth: 150 }}
         >
+          <SearchRoundedIcon/>
           Search
         </Button>
         <Button
           variant="contained"
           onClick={fetchAdmins}
-          sx={{ minWidth: 120 }}
+          sx={{ minWidth: 150 }}
         >
+          <SearchRoundedIcon/>
           Show All
         </Button>
       </Stack>

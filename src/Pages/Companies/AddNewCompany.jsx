@@ -19,6 +19,9 @@ import {
 } from "@mui/material";
 
 const BASE_URL = "https://digidialersuperadmin.onrender.com";
+import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import DomainIcon from "@mui/icons-material/Domain";
 
 const AddNewCompany = () => {
   const [companies, setCompanies] = useState([]);
@@ -193,52 +196,12 @@ const AddNewCompany = () => {
       </Typography>
 
       {/* ADD COMPANY sx={{ backgroundColor: "#e3f2fd" }}*/}
-      {/* <Paper sx={{ p: 2, mb: 2, backgroundColor: "#00838f" , boxShadow:"0px, 10px, 15px"}}>
-        <Typography variant="h6" mb={2} fontWeight="bold">
-          Add New Company
-        </Typography>
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={2}
-          alignItems="flex-end"
-        >
-          <TextField
-            label="Company Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            onKeyPress={handleKeyPress}
-            fullWidth
-            size="small"
-            required
-          />
-          <TextField
-            label="Domain"
-            value={domain}
-            onChange={(e) => setDomain(e.target.value)}
-            onKeyPress={handleKeyPress}
-            fullWidth
-            size="small"
-            required
-            placeholder="example.com"
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={addCompany}
-            disabled={addLoading}
-            sx={{ minWidth: "120px", height: "40px" }}
-          >
-            {addLoading ? <CircularProgress size={40} /> : "Add"}
-          </Button>
-        </Stack>
-      </Paper> */}
-
       <Paper
         sx={{
           p: 3,
           mb: 3,
           borderRadius: 3,
-          background: "#26a69a",
+          // background: "#26a69a",
           boxShadow: "0px 8px 25px, #fff",
           color: "#fff",
         }}
@@ -278,16 +241,16 @@ const AddNewCompany = () => {
             onClick={addCompany}
             disabled={addLoading}
             sx={{
-              minWidth: "120px",
+              minWidth: "200px",
               height: "40px",
-              backgroundColor: "#00897b",
-              "&:hover": { backgroundColor: "#3ddfcaff" },
+              gap: 1,
             }}
           >
+            <AddCircleRoundedIcon />
             {addLoading ? (
-              <CircularProgress size={24} color="inherit" />
+              <CircularProgress size={44} color="inherit" />
             ) : (
-              "Add"
+              "Add Company"
             )}
           </Button>
         </Stack>
@@ -299,9 +262,6 @@ const AddNewCompany = () => {
           p: 3,
           mb: 3,
           borderRadius: 3,
-          // background: "#80cbc4",
-          // background:"	#0080ff",
-          background: "#b0bec5",
           boxShadow: "0px 8px 25px, #fff",
           color: "black",
         }}
@@ -330,9 +290,11 @@ const AddNewCompany = () => {
                 mt: 1,
                 width: "100%",
                 backgroundColor: "primary",
+                gap: 1,
                 // "&:hover": { backgroundColor: "#3ddfcaff" },
               }}
             >
+              <SearchRoundedIcon />
               Search by ID
             </Button>
           </Box>
@@ -353,9 +315,11 @@ const AddNewCompany = () => {
                 mt: 1,
                 width: "100%",
                 backgroundColor: "primary",
+                gap: 1,
                 // "&:hover": { backgroundColor: "#3ddfcaff" },
               }}
             >
+              <SearchRoundedIcon />
               Search by Name
             </Button>
           </Box>
@@ -368,9 +332,11 @@ const AddNewCompany = () => {
               height: "40px",
               fontWeight: "bold",
               backgroundColor: "primary",
+              gap: 1,
               // "&:hover": { backgroundColor: "#3ddfcaff" },
             }}
           >
+            <SearchRoundedIcon />
             Show All
           </Button>
         </Stack>
@@ -378,7 +344,17 @@ const AddNewCompany = () => {
 
       {/* COMPANY TABLE  */}
       <Paper sx={{ p: 2 }}>
-        <Typography variant="h6" mb={2} fontWeight="bold">
+        <Typography
+          variant="h6"
+          mb={2}
+          fontWeight="bold"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+          }}
+        >
+          <DomainIcon sx={{ fontSize: 28 }} />
           Company List {companies.length > 0 && `(${companies.length})`}
         </Typography>
 

@@ -25,6 +25,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import StopIcon from "@mui/icons-material/Stop";
 import DownloadIcon from "@mui/icons-material/GetApp";
+import SearchIcon from "@mui/icons-material/Search";
 
 const BASE_URL = "https://digidialersuperadmin.onrender.com";
 
@@ -163,12 +164,14 @@ const LogDetails = () => {
 
   return (
     <Box sx={{ p: 2, maxWidth: "1200px", mx: "auto" }}>
-      <Typography variant="h4" mb={2} fontWeight="bold" sx={{ pt: 3 }}>
+      <Typography variant="h5" mb={1} fontWeight="bold" sx={{ pt: 3 }}>
         WebHook Logs
       </Typography>
 
       {/* Search */}
-      <Paper sx={{ p: 2, mb: 3, display: "flex", gap: 2, alignItems: "center" }}>
+      <Paper
+        sx={{ p: 2, mb: 3, display: "flex", gap: 2, alignItems: "center" }}
+      >
         <TextField
           label="Search by Log ID"
           value={logId}
@@ -176,10 +179,22 @@ const LogDetails = () => {
           size="small"
           sx={{ width: "300px" }}
         />
-        <Button sx={{ width: "300px" }} variant="contained" color="primary" onClick={fetchLogById}>
+        <Button
+          sx={{ width: "300px" }}
+          variant="contained"
+          color="primary"
+          onClick={fetchLogById}
+        >
+          <SearchIcon />
           Search
         </Button>
-        <Button sx={{ width: "300px" }} variant="contained" color="primary" onClick={fetchAllLogs}>
+        <Button
+          sx={{ width: "300px" }}
+          variant="contained"
+          color="primary"
+          onClick={fetchAllLogs}
+        >
+          <SearchIcon />
           Show All Logs
         </Button>
       </Paper>
@@ -196,24 +211,40 @@ const LogDetails = () => {
             <Table>
               <TableHead sx={{ backgroundColor: "#e3f2fd" }}>
                 <TableRow>
-                  <TableCell><strong>ID</strong></TableCell>
-                  <TableCell><strong>Team ID</strong></TableCell>
-                  <TableCell><strong>Event Type</strong></TableCell>
-                  <TableCell><strong>Payload</strong></TableCell>
-                  <TableCell align="center"><strong>Call Recording</strong></TableCell>
+                  <TableCell>
+                    <strong>ID</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Team ID</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Event Type</strong>
+                  </TableCell>
+                  <TableCell>
+                    <strong>Payload</strong>
+                  </TableCell>
+                  <TableCell align="center">
+                    <strong>Call Recording</strong>
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {logs.map((log) => {
                   // recording URL may be at log.payload.RecordingUrl
-                  const recordingUrl = log?.payload?.RecordingUrl || log?.payload?.recording_url || null;
+                  const recordingUrl =
+                    log?.payload?.RecordingUrl ||
+                    log?.payload?.recording_url ||
+                    null;
                   return (
                     <TableRow key={log.id}>
                       <TableCell>{log.id}</TableCell>
                       <TableCell>{log.team_id || "N/A"}</TableCell>
                       <TableCell>{log.event_type || "N/A"}</TableCell>
                       <TableCell>
-                        <IconButton color="primary" onClick={() => setSelectedLog(log.payload)}>
+                        <IconButton
+                          color="primary"
+                          onClick={() => setSelectedLog(log.payload)}
+                        >
                           <InfoIcon />
                         </IconButton>
                       </TableCell>
@@ -229,7 +260,12 @@ const LogDetails = () => {
                               </Tooltip>
                             ) : (
                               <Tooltip title="Play">
-                                <IconButton color="primary" onClick={() => handlePlay(recordingUrl, log.id)}>
+                                <IconButton
+                                  color="primary"
+                                  onClick={() =>
+                                    handlePlay(recordingUrl, log.id)
+                                  }
+                                >
                                   <PlayArrowIcon />
                                 </IconButton>
                               </Tooltip>
@@ -250,7 +286,9 @@ const LogDetails = () => {
                             </Tooltip>
                           </>
                         ) : (
-                          <Typography variant="body2" color="text.secondary">No Recording</Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            No Recording
+                          </Typography>
                         )}
                       </TableCell>
                     </TableRow>
@@ -260,12 +298,19 @@ const LogDetails = () => {
             </Table>
           </TableContainer>
         ) : (
-          <Typography sx={{ textAlign: "center", py: 4 }}>No logs found</Typography>
+          <Typography sx={{ textAlign: "center", py: 4 }}>
+            No logs found
+          </Typography>
         )}
       </Paper>
 
       {/* Payload Dialog */}
-      <Dialog open={!!selectedLog} onClose={() => setSelectedLog(null)} maxWidth="md" fullWidth>
+      <Dialog
+        open={!!selectedLog}
+        onClose={() => setSelectedLog(null)}
+        maxWidth="md"
+        fullWidth
+      >
         <DialogTitle>Log Payload</DialogTitle>
         <DialogContent dividers>
           <Box
@@ -289,7 +334,10 @@ const LogDetails = () => {
         onClose={() => setSnackbar({ ...snackbar, open: false })}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert severity={snackbar.severity} onClose={() => setSnackbar({ ...snackbar, open: false })}>
+        <Alert
+          severity={snackbar.severity}
+          onClose={() => setSnackbar({ ...snackbar, open: false })}
+        >
           {snackbar.message}
         </Alert>
       </Snackbar>
@@ -298,5 +346,4 @@ const LogDetails = () => {
 };
 
 export default LogDetails;
-
 
