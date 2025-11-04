@@ -191,7 +191,7 @@ const AddNewCompany = () => {
 
   return (
     <Box sx={{ p: 2, maxWidth: "1200px", mx: "auto", mt: 3 }}>
-      <Typography variant="h4" mb={1} fontWeight="bold">
+      <Typography variant="h5" mb={1} fontWeight="bold">
         Add Company
       </Typography>
 
@@ -223,7 +223,7 @@ const AddNewCompany = () => {
             fullWidth
             size="small"
             required
-            sx={{ background: "#fff", borderRadius: 1 }}
+            sx={{ background: "#fff", borderRadius: 1 ,}}
           />
           <TextField
             label="Domain"

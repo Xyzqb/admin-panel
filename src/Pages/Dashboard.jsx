@@ -22,6 +22,7 @@ import Business from "@mui/icons-material/Business";
 import Person from "@mui/icons-material/Person";
 import Group from "@mui/icons-material/Group";
 import Groups from "@mui/icons-material/Groups";
+import bitmax from "../assets/bitmax.png";
 import axios from "axios";
 
 const BASE_URL = "https://digidialersuperadmin.onrender.com";
@@ -129,78 +130,11 @@ const Dashboard = () => {
       sx={{ p: 4, background: "#334155", color: "#fff", minHeight: "100vh" }}
     >
       {/* Header */}
-      <Typography variant="h4" sx={{ mb: 3, pt: 2, fontWeight: "bold" }}>
+      <Typography variant="h5" sx={{ mb: 2, pt: 1, fontWeight: "bold" }}>
         Super Admin Dashboard Overview
       </Typography>
 
       {/* Summary Cards */}
-      {/* <Grid container spacing={2} sx={{ mb: 3, ml: 1 }}>
-        {[
-          {
-            title: "Companies",
-            value: totalCompanies,
-            icon: <Business fontSize="large" sx={{ color: "black" }} />,
-            bgColor: "#e0f7fa",
-            shadowColor: "rgba(0, 150, 136, 0.4)",
-          },
-          {
-            title: "Admins",
-            value: totalAdmins,
-            icon: <Person fontSize="large" sx={{ color: "black" }} />,
-           bgColor: "#e3f2fd",
-            shadowColor: "rgba(33, 150, 243, 0.4)",
-          },
-          {
-            title: "Agents",
-            value: totalAgents,
-            icon: <Groups fontSize="large" sx={{ color: "black" }} />,
-            bgColor: "#e0caa7ff", // light orange
-            shadowColor: "rgba(255, 152, 0, 0.4)",
-          },
-          {
-            title: "Teams",
-            value: totalTeams,
-            icon: <Group fontSize="large" sx={{ color: "black" }} />,
-            bgColor: "#edd8f1ff", // light purple
-            shadowColor: "rgba(156, 39, 176, 0.4)",
-          },
-        ].map((card, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <Paper
-              sx={{
-                p: 2,
-                borderRadius: 2,
-                background: card.bgColor,
-                width: "175px",
-                justifyItems: "center",
-                boxShadow: `0px 8px 25px`,
-                transition: "transform 0.3s ease",
-                "&:hover": {
-                  transform: "translateY(-5px)",
-                },
-              }}
-            >
-              <Box
-                sx={{ display: "flex", alignItems: "center", mb: 1, gap: 1 }}
-              >
-                {card.icon}
-                <Typography
-                  variant="h6"
-                  sx={{ fontWeight: "bold", color: "black" }}
-                >
-                  {card.title}
-                </Typography>
-              </Box>
-              <Typography
-                variant="h5"
-                sx={{ fontWeight: "bold", color: "black" }}
-              >
-                {card.value}
-              </Typography>
-            </Paper>
-          </Grid>
-        ))}
-      </Grid> */}
       <Grid container spacing={2} sx={{ mb: 3, ml: 1 }}>
         {[
           {
@@ -275,9 +209,9 @@ const Dashboard = () => {
               p: 2,
               borderRadius: 2,
               height: 300,
-               background: "white",
+              background: "white",
               width: "400px",
-              boxShadow: "0px 6px 20px , #fff",
+              boxShadow: "0px 10px 30px",
             }}
           >
             <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
@@ -342,12 +276,19 @@ const Dashboard = () => {
       {/* Footer */}
       <Typography
         variant="caption"
-        sx={{ display: "block", textAlign: "center", color: "#ccc", mt: 4 }}
+        sx={{ display: "block", textAlign: "center", color: "#fff", mt: 4, fontWeight:"bold",}}
       >
         Powered by{" "}
-        <Box component="span" sx={{ color: "skyblue", fontWeight: "bold" }}>
-          Bitmax
-        </Box>
+        <Box
+          component="img"
+          src={bitmax}
+          alt="logo"
+          sx={{
+            height: 40,
+            verticalAlign: "middle",
+            ml: 0.5,
+          }}
+        />
       </Typography>
     </Box>
   );

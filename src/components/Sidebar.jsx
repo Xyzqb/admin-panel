@@ -371,8 +371,6 @@
 
 // export default Sidebar;
 
-
-
 import React, { useState } from "react";
 import {
   Drawer,
@@ -404,7 +402,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 const menuBg = "#334155"; // dark main menu background
 const submenuBg = "#475569"; // slightly lighter for submenu
 const activeColor = "#798391ff";
-// const activeColor = "#7191a3ff"; // highlight color
 
 const drawerWidth = 240;
 
@@ -438,9 +435,9 @@ const Sidebar = () => {
 
   const activeStyle = {
     backgroundColor: activeColor,
-    boxShadow: "0 3px 10px rgba(2, 136, 209, 0.4)",
     color: "#fff",
     borderRadius: "8px",
+    boxShadow: "0 3px 10px rgba(2, 136, 209, 0.4)",
   };
 
   return (
@@ -457,22 +454,20 @@ const Sidebar = () => {
           overflowY: "auto",
           transition: "all 0.3s ease-in-out",
           scrollbarWidth: "thin",
-          "&::-webkit-scrollbar": {
-            width: "8px",
-          },
+          "&::-webkit-scrollbar": { width: "8px" },
           "&::-webkit-scrollbar-thumb": {
             backgroundColor: "#64748b",
             borderRadius: "10px",
-          },
-          "&::-webkit-scrollbar-thumb:hover": {
-            backgroundColor: "#94a3b8",
           },
         },
       }}
     >
       {/* Header */}
       <Toolbar sx={{ justifyContent: "center" }}>
-        <Typography variant="h6" sx={{ color: "#fff", fontWeight: "bold" }}>
+        <Typography
+          variant="h6"
+          sx={{ color: "#fff", fontWeight: "bold", fontSize: "1.2rem" }}
+        >
           Super Admin
         </Typography>
       </Toolbar>
@@ -493,7 +488,10 @@ const Sidebar = () => {
             <ListItemIcon sx={{ color: "#fff" }}>
               <Dashboard />
             </ListItemIcon>
-            <ListItemText primary="Dashboard" />
+            <ListItemText
+              primary="Dashboard"
+              primaryTypographyProps={{ fontWeight: "bold", fontSize: "0.95rem" }}
+            />
           </ListItemButton>
         </ListItem>
 
@@ -510,7 +508,10 @@ const Sidebar = () => {
             <ListItemIcon sx={{ color: "#fff" }}>
               <Business />
             </ListItemIcon>
-            <ListItemText primary="Companies" />
+            <ListItemText
+              primary="Companies"
+              primaryTypographyProps={{ fontWeight: "bold", fontSize: "0.95rem" }}
+            />
             {companyOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
         </ListItem>
@@ -528,7 +529,10 @@ const Sidebar = () => {
                 "&:hover": { backgroundColor: "#1e293b" },
               }}
             >
-              <ListItemText primary="Add Company" />
+              <ListItemText
+                primary="Add Company"
+                primaryTypographyProps={{ fontSize: "0.85rem" }}
+              />
             </ListItemButton>
 
             <ListItemButton
@@ -541,7 +545,10 @@ const Sidebar = () => {
                 "&:hover": { backgroundColor: "#1e293b" },
               }}
             >
-              <ListItemText primary="KYC Details" />
+              <ListItemText
+                primary="KYC Details"
+                primaryTypographyProps={{ fontSize: "0.85rem" }}
+              />
             </ListItemButton>
 
             {/* Admins */}
@@ -557,7 +564,10 @@ const Sidebar = () => {
               <ListItemIcon sx={{ color: "#fff" }}>
                 <SupervisorAccountIcon />
               </ListItemIcon>
-              <ListItemText primary="Admins" />
+              <ListItemText
+                primary="Admins"
+                primaryTypographyProps={{ fontSize: "0.85rem" }}
+              />
               {adminsOpen ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
@@ -573,7 +583,10 @@ const Sidebar = () => {
                     "&:hover": { backgroundColor: "#1e293b" },
                   }}
                 >
-                  <ListItemText primary="Admin Details" />
+                  <ListItemText
+                    primary="Admin Details"
+                    primaryTypographyProps={{ fontSize: "0.8rem" }}
+                  />
                 </ListItemButton>
               </List>
             </Collapse>
@@ -591,7 +604,10 @@ const Sidebar = () => {
               <ListItemIcon sx={{ color: "#fff" }}>
                 <People />
               </ListItemIcon>
-              <ListItemText primary="Agents" />
+              <ListItemText
+                primary="Agents"
+                primaryTypographyProps={{ fontSize: "0.85rem" }}
+              />
               {companyAgentsOpen ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
@@ -607,7 +623,10 @@ const Sidebar = () => {
                     "&:hover": { backgroundColor: "#1e293b" },
                   }}
                 >
-                  <ListItemText primary="Agent Details" />
+                  <ListItemText
+                    primary="Agent Details"
+                    primaryTypographyProps={{ fontSize: "0.8rem" }}
+                  />
                 </ListItemButton>
               </List>
             </Collapse>
@@ -625,7 +644,10 @@ const Sidebar = () => {
               <ListItemIcon sx={{ color: "#fff" }}>
                 <Group />
               </ListItemIcon>
-              <ListItemText primary="Teams" />
+              <ListItemText
+                primary="Teams"
+                primaryTypographyProps={{ fontSize: "0.85rem" }}
+              />
               {teamsOpen ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
@@ -641,7 +663,10 @@ const Sidebar = () => {
                     "&:hover": { backgroundColor: "#1e293b" },
                   }}
                 >
-                  <ListItemText primary="Team Page" />
+                  <ListItemText
+                    primary="Team Page"
+                    primaryTypographyProps={{ fontSize: "0.8rem" }}
+                  />
                 </ListItemButton>
 
                 <ListItemButton
@@ -654,14 +679,17 @@ const Sidebar = () => {
                     "&:hover": { backgroundColor: "#1e293b" },
                   }}
                 >
-                  <ListItemText primary="Team Members" />
+                  <ListItemText
+                    primary="Team Members"
+                    primaryTypographyProps={{ fontSize: "0.8rem" }}
+                  />
                 </ListItemButton>
               </List>
             </Collapse>
           </List>
         </Collapse>
 
-        {/* Plans Section */}
+        {/* Plans */}
         <ListItem disablePadding>
           <ListItemButton
             onClick={handlePlansClick}
@@ -674,7 +702,10 @@ const Sidebar = () => {
             <ListItemIcon sx={{ color: "#fff" }}>
               <Lan />
             </ListItemIcon>
-            <ListItemText primary="Plans" />
+            <ListItemText
+              primary="Plans"
+              primaryTypographyProps={{ fontWeight: "bold", fontSize: "0.95rem" }}
+            />
             {plansOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
         </ListItem>
@@ -691,10 +722,10 @@ const Sidebar = () => {
                 "&:hover": { backgroundColor: "#1e293b" },
               }}
             >
-              <ListItemIcon sx={{ color: "#fff" }}>
-                <Info />
-              </ListItemIcon>
-              <ListItemText primary="Plan Details" />
+              <ListItemText
+                primary="Plan Details"
+                primaryTypographyProps={{ fontSize: "0.85rem" }}
+              />
             </ListItemButton>
           </List>
         </Collapse>
@@ -712,7 +743,10 @@ const Sidebar = () => {
             <ListItemIcon sx={{ color: "#fff" }}>
               <LinkIcon />
             </ListItemIcon>
-            <ListItemText primary="Webhook" />
+            <ListItemText
+              primary="Webhook"
+              primaryTypographyProps={{ fontWeight: "bold", fontSize: "0.95rem" }}
+            />
             {webhookOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
         </ListItem>
@@ -729,7 +763,10 @@ const Sidebar = () => {
                 "&:hover": { backgroundColor: "#1e293b" },
               }}
             >
-              <ListItemText primary="Log Details" />
+              <ListItemText
+                primary="Log Details"
+                primaryTypographyProps={{ fontSize: "0.85rem" }}
+              />
             </ListItemButton>
           </List>
         </Collapse>

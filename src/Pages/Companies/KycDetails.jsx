@@ -139,7 +139,7 @@ const ShowAllCompany = () => {
 
   return (
     <Box sx={{ p: 2, pt: 6 }}>
-      <Typography variant="h4" fontWeight="bold" mb={2}>
+      <Typography variant="h5" fontWeight="bold" mb={1}>
         KYC Details
       </Typography>
 
@@ -209,11 +209,52 @@ const ShowAllCompany = () => {
                     )
                   }
                 >
-                  <Box>
-                    <Typography variant="subtitle1" fontWeight="bold">
-                      <span>{c.company_id}</span>{" "}
-                      {c.company_name || "Unnamed Company"}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      width: "100%",
+                      textAlign: "center",
+                    }}
+                  >
+                    {/* 🏢 Company Name + ID */}
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight="bold"
+                      sx={{ mb: 1 }}
+                    >
+                      {c.company_name || "Unnamed Company"} ({c.company_id})
                     </Typography>
+
+                    {/* 🏷️ Status Badge */}
+                    <Box
+                      sx={{
+                        px: 2,
+                        py: 0.5,
+                        borderRadius: "8px",
+                        fontSize: "13px",
+                        fontWeight: "bold",
+                        color:
+                          c.status === "approved"
+                            ? "#1b5e20"
+                            : c.status === "rejected"
+                            ? "#b71c1c"
+                            : "#f57f17",
+                        backgroundColor:
+                          c.status === "approved"
+                            ? "#c8e6c9"
+                            : c.status === "rejected"
+                            ? "#ffcdd2"
+                            : "#fff9c4",
+                        textTransform: "capitalize",
+                        boxShadow: "0 0 4px rgba(0,0,0,0.1)",
+                        width: "fit-content",
+                        mb: 1,
+                      }}
+                    >
+                      {c.status || "pending"}
+                    </Box>
                   </Box>
 
                   {expandedCompany === c.company_id ? (
@@ -340,7 +381,6 @@ const ShowAllCompany = () => {
                         </Button>
                       </Stack>
                     </Box>
-
                   </Box>
                 )}
               </Paper>

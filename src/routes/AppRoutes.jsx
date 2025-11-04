@@ -2,8 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import Login from "../Pages/Login";
 import Dashboard from "../Pages/Dashboard";
-import CompanyContactList from "../Pages/Companies/CompanyContactList";
-import AddEditContact from "../Pages/Companies/AddEditContact";
 import AddNewCompany from "../Pages/Companies/AddNewCompany";
 import AdminDetails from "../Pages/admins/AdminDetails";
 import AgentProfile from "../Pages/Agents/AgentProfile";
@@ -59,8 +57,6 @@ function AppRoutes() {
             <Route path="/agents/profile" element={<AgentProfile />} />
 
             {/* Companies */}
-            <Route path="companies/contact-list" element={<CompanyContactList />} />
-            <Route path="companies/add-edit-contact" element={<AddEditContact />} />
             <Route path="companies/add-new-company" element={<AddNewCompany />} />
             <Route path="companies/kyc-details" element={<KycDetails />} />
 
