@@ -1,4 +1,5 @@
 {
+  "homepage": "https://Xyzqb.github.io/admin-panel",
   "name": "admin-panel",
   "private": true,
   "version": "0.0.0",
@@ -6,8 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -22,18 +24,11 @@
     "recharts": "^3.2.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.36.0",
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.3",
-    "eslint": "^9.36.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
-    "globals": "^16.4.0",
+    "gh-pages": "^6.3.0",
     "vite": "^7.1.7"
   },
-  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
-  "main": "eslint.config.js",
+  "description": "Admin Panel built with React and Vite",
   "author": "",
   "license": "ISC"
 }

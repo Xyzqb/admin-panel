@@ -448,9 +448,7 @@ const Sidebar = () => {
       sx={{
         width: SidebarOpen ? drawerWidth : 70,
         transition: "width 0.3s ease",
-        // width: drawerWidth,
         [`& .MuiDrawer-paper`]: {
-          // width: drawerWidth,
           width: SidebarOpen ? drawerWidth : 70,
           boxSizing: "border-box",
           background: menuBg,
