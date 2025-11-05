@@ -88,3 +88,101 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+// import React, { useContext } from "react";
+// import {
+//   AppBar,
+//   Toolbar,
+//   Stack,
+//   Box,
+//   Typography,
+//   IconButton,
+//   Button,
+//   useTheme,
+// } from "@mui/material";
+// import LogoutIcon from "@mui/icons-material/Logout";
+// import Brightness4Icon from "@mui/icons-material/Brightness4";
+// import Brightness7Icon from "@mui/icons-material/Brightness7";
+// import logo from "../assets/digidial_logo.jpg";
+// import { useNavigate } from "react-router-dom";
+// import ThemeContext from "../Pages/Theme/ThemeContext";
+
+// export const NAVBAR_HEIGHT = 56;
+
+// const Navbar = () => {
+//   const navigate = useNavigate();
+//   const { toggleTheme, mode } = useContext(ThemeContext);
+//   const theme = useTheme(); // 🟢 Access MUI theme colors
+
+//   const handleLogout = () => {
+//     localStorage.removeItem("authToken");
+//     navigate("/login");
+//   };
+
+//   return (
+//     <AppBar
+//       position="fixed"
+//       sx={{
+//         height: `${NAVBAR_HEIGHT}px`,
+//         backgroundColor: theme.palette.background.paper, // 🟢 auto changes with theme
+//         color: theme.palette.text.primary,
+//         boxShadow: theme.shadows[2],
+//         zIndex: (t) => t.zIndex.drawer + 1,
+//         transition: "all 0.4s ease",
+//       }}
+//     >
+//       <Toolbar
+//         sx={{
+//           minHeight: `${NAVBAR_HEIGHT}px !important`,
+//           display: "flex",
+//           alignItems: "center",
+//           justifyContent: "space-between",
+//         }}
+//       >
+//         {/* Left: Logo + Title */}
+//         <Stack direction="row" spacing={1} alignItems="center">
+//           <Box
+//             component="img"
+//             src={logo}
+//             alt="DigiDial"
+//             sx={{
+//               height: 40,
+//               width: 40,
+//               borderRadius: "50%",
+//               objectFit: "cover",
+//             }}
+//           />
+//           <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+//             DigiDial
+//           </Typography>
+//         </Stack>
+
+//         {/* Right: Toggle + Logout */}
+//         <Stack direction="row" spacing={1} alignItems="center">
+//           <IconButton color="inherit" onClick={toggleTheme}>
+//             {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+//           </IconButton>
+
+//           <Button
+//             variant="contained"
+//             startIcon={<LogoutIcon />}
+//             onClick={handleLogout}
+//             sx={{
+//               backgroundColor: "#00bfa5",
+//               "&:hover": { backgroundColor: "#009e88" },
+//               textTransform: "none",
+//               borderRadius: 2,
+//               px: 2,
+//             }}
+//           >
+//             Logout
+//           </Button>
+//         </Stack>
+//       </Toolbar>
+//     </AppBar>
+//   );
+// };
+
+// export default Navbar;

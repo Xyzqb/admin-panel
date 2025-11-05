@@ -5,6 +5,7 @@ import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
+import ThemeContextProvider from "./Pages/Theme/ThemeContext";
 
 function App() {
   // ✅ initialize login state from localStorage

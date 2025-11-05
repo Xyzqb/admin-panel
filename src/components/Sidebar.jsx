@@ -397,6 +397,7 @@ import {
 } from "@mui/icons-material";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import DehazeIcon from "@mui/icons-material/Dehaze";
 
 // 🎨 Color Constants
 const menuBg = "#334155"; // dark main menu background
@@ -425,6 +426,7 @@ const Sidebar = () => {
   const handleTeamsClick = () => setTeamsOpen(!teamsOpen);
   const handleWebhookClick = () => setWebhookOpen(!webhookOpen);
   const handlePlansClick = () => setPlansOpen(!plansOpen);
+  const [SidebarOpen, setSidebarOpen] = useState(true);
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
@@ -444,9 +446,12 @@ const Sidebar = () => {
     <Drawer
       variant="permanent"
       sx={{
-        width: drawerWidth,
+        width: SidebarOpen ? drawerWidth : 70,
+        transition: "width 0.3s ease",
+        // width: drawerWidth,
         [`& .MuiDrawer-paper`]: {
-          width: drawerWidth,
+          // width: drawerWidth,
+          width: SidebarOpen ? drawerWidth : 70,
           boxSizing: "border-box",
           background: menuBg,
           mt: 5,
@@ -463,13 +468,30 @@ const Sidebar = () => {
       }}
     >
       {/* Header */}
-      <Toolbar sx={{ justifyContent: "center" }}>
-        <Typography
-          variant="h6"
-          sx={{ color: "#fff", fontWeight: "bold", fontSize: "1.2rem" }}
-        >
-          Super Admin
-        </Typography>
+      <Toolbar
+        sx={{
+          justifyContent: "flex-start",
+          ml: -1,
+          cursor: "pointer",
+          display: "flex",
+        }}
+        onClick={() => setSidebarOpen((prev) => !prev)}
+      >
+        <DehazeIcon sx={{ color: "#fff", fontSize: 26 }} />
+        {SidebarOpen && (
+          <Typography
+            variant="h6"
+            sx={{
+              color: "#fff",
+              fontWeight: "bold",
+              fontSize: "1.2rem",
+              display: "flex",
+              ml: 2,
+            }}
+          >
+            Super Admin
+          </Typography>
+        )}
       </Toolbar>
 
       <List>
@@ -490,7 +512,10 @@ const Sidebar = () => {
             </ListItemIcon>
             <ListItemText
               primary="Dashboard"
-              primaryTypographyProps={{ fontWeight: "bold", fontSize: "0.95rem" }}
+              primaryTypographyProps={{
+                fontWeight: "bold",
+                fontSize: "0.95rem",
+              }}
             />
           </ListItemButton>
         </ListItem>
@@ -510,7 +535,10 @@ const Sidebar = () => {
             </ListItemIcon>
             <ListItemText
               primary="Companies"
-              primaryTypographyProps={{ fontWeight: "bold", fontSize: "0.95rem" }}
+              primaryTypographyProps={{
+                fontWeight: "bold",
+                fontSize: "0.95rem",
+              }}
             />
             {companyOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
@@ -572,7 +600,11 @@ const Sidebar = () => {
             </ListItemButton>
 
             <Collapse in={adminsOpen} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding sx={{ background: submenuBg }}>
+              <List
+                component="div"
+                disablePadding
+                sx={{ background: submenuBg }}
+              >
                 <ListItemButton
                   component={Link}
                   to="/admins/admin-details"
@@ -612,7 +644,11 @@ const Sidebar = () => {
             </ListItemButton>
 
             <Collapse in={companyAgentsOpen} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding sx={{ background: submenuBg }}>
+              <List
+                component="div"
+                disablePadding
+                sx={{ background: submenuBg }}
+              >
                 <ListItemButton
                   component={Link}
                   to="/agents/profile"
@@ -652,7 +688,11 @@ const Sidebar = () => {
             </ListItemButton>
 
             <Collapse in={teamsOpen} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding sx={{ background: submenuBg }}>
+              <List
+                component="div"
+                disablePadding
+                sx={{ background: submenuBg }}
+              >
                 <ListItemButton
                   component={Link}
                   to="/Teams/teams-page"
@@ -704,7 +744,10 @@ const Sidebar = () => {
             </ListItemIcon>
             <ListItemText
               primary="Plans"
-              primaryTypographyProps={{ fontWeight: "bold", fontSize: "0.95rem" }}
+              primaryTypographyProps={{
+                fontWeight: "bold",
+                fontSize: "0.95rem",
+              }}
             />
             {plansOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
@@ -745,7 +788,10 @@ const Sidebar = () => {
             </ListItemIcon>
             <ListItemText
               primary="Webhook"
-              primaryTypographyProps={{ fontWeight: "bold", fontSize: "0.95rem" }}
+              primaryTypographyProps={{
+                fontWeight: "bold",
+                fontSize: "0.95rem",
+              }}
             />
             {webhookOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
