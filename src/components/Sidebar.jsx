@@ -400,8 +400,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 
 // 🎨 Color Constants
-const menuBg = "#334155"; // dark main menu background
-const submenuBg = "#475569"; // slightly lighter for submenu
+const menuBg = "#334155"; 
+const submenuBg = "#475569"; 
 const activeColor = "#798391ff";
 
 const drawerWidth = 240;
